@@ -1,0 +1,15 @@
+La función encargada de la calibración es "void MPU9250::magCalMPU9250". Se encuentra dentro de MPU9250.cpp.
+
+La calibración consiste en girar el sensor por todo el espacio. La idea que es que tome muestras de máximos y mínimos de los campos magneticos circundantes.
+
+El script dentro de Datos magnetometro esta configurado para realizar la calibración durante 30 seg. Cuando finaliza imprime los valores de la calibración para luego introducirlos en el script de Sensor_Bluetooth.
+
+Si se desea extraer los datos del magnetómetro antes y después de calibrar, se pueden utilizar:
+
+BT.println(myIMU.mx+String(",")+myIMU.my+String(",")+myIMU.mz);
+
+o
+
+Serial.println(myIMU.mx);
+Serial.println(myIMU.my);
+Serial.println(myIMU.mz);

@@ -1,0 +1,2 @@
+con filtro de Madgwick ronda los 160Hz - 6,25 ms
+con filtro de Mahony ronda los 185Hz - 5,4 ms

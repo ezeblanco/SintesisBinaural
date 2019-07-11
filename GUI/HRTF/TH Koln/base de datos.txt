@@ -1,0 +1,15 @@
+Measurement and Perceptual Evaluation of a Spherical Near-Field HRTF Set
+
+Johannes M. Arend1;2, Annika Neidhardt3, Christoph P¨orschmann1
+
+29th TONMEISTERTAGUNG - VDT INTERNATIONAL CONVENTION, November 2016
+
+'Technische Hochschule Köln, Germany'
+
+cabeza maniquí Neumann KU100
+full spherical grid with 2702 points, 128 muestras
+frecuencia de muestreo de 48kHz.
+filtro de compensación en bajas frecuencias para generar una respuesta plana 
+Creative Commons CC BY-SA 4.0 license
+
+http://www.sofacoustics.org/data/database/thk/

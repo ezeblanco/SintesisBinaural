@@ -1,0 +1,1 @@
+Se pueden guardar los audios que se deseen en esta carpeta, sino se puede cambiar el directorio de uigetfile a otra carpeta con audios.
