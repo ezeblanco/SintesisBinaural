@@ -1,4 +1,4 @@
-# Sintesis Binaural in real-time with matlab
+# Binaural Synthesis in real-time with matlab
 
 GitHub repository for my thesis report "Implementación de filtros HRTF para síntesis binaural en tiempo real". Please cite using the following BibTex entry:
 <pre>
