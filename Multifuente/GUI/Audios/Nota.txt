@@ -1,0 +1,2 @@
+Se pueden guardar los audios que se deseen en esta carpeta, sino se puede cambiar el directorio de uigetfile a otra carpeta con audios.
+En la carpeta Temp se almacenan los archivos de audios que debieron ser convertidos ya sea porque eran monos o tenias otra Fs. Luego se eliminan cuando se cierra la GUI
