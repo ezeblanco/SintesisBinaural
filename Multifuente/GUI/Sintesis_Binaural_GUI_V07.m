@@ -1,35 +1,35 @@
-function varargout = Sintesis_Binaural_GUI_V06(varargin)
-% SINTESIS_BINAURAL_GUI_V06 MATLAB code for Sintesis_Binaural_GUI_V06.fig
-%      SINTESIS_BINAURAL_GUI_V06, by itself, creates a new SINTESIS_BINAURAL_GUI_V06 or raises the existing
+function varargout = Sintesis_Binaural_GUI_V07(varargin)
+% SINTESIS_BINAURAL_GUI_V07 MATLAB code for Sintesis_Binaural_GUI_V07.fig
+%      SINTESIS_BINAURAL_GUI_V07, by itself, creates a new SINTESIS_BINAURAL_GUI_V07 or raises the existing
 %      singleton*.
 %
-%      H = SINTESIS_BINAURAL_GUI_V06 returns the handle to a new SINTESIS_BINAURAL_GUI_V06 or the handle to
+%      H = SINTESIS_BINAURAL_GUI_V07 returns the handle to a new SINTESIS_BINAURAL_GUI_V07 or the handle to
 %      the existing singleton*.
 %
-%      SINTESIS_BINAURAL_GUI_V06('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in SINTESIS_BINAURAL_GUI_V06.M with the given input arguments.
+%      SINTESIS_BINAURAL_GUI_V07('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in SINTESIS_BINAURAL_GUI_V07.M with the given input arguments.
 %
-%      SINTESIS_BINAURAL_GUI_V06('Property','Value',...) creates a new SINTESIS_BINAURAL_GUI_V06 or raises the
+%      SINTESIS_BINAURAL_GUI_V07('Property','Value',...) creates a new SINTESIS_BINAURAL_GUI_V07 or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before Sintesis_Binaural_GUI_V06_OpeningFcn gets called.  An
+%      applied to the GUI before Sintesis_Binaural_GUI_V07_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to Sintesis_Binaural_GUI_V06_OpeningFcn via varargin.
+%      stop.  All inputs are passed to Sintesis_Binaural_GUI_V07_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help Sintesis_Binaural_GUI_V06
+% Edit the above text to modify the response to help Sintesis_Binaural_GUI_V07
 
-% Last Modified by GUIDE v2.5 18-Sep-2019 10:11:52
+% Last Modified by GUIDE v2.5 01-Oct-2019 11:34:24
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @Sintesis_Binaural_GUI_V06_OpeningFcn, ...
-                   'gui_OutputFcn',  @Sintesis_Binaural_GUI_V06_OutputFcn, ...
+                   'gui_OpeningFcn', @Sintesis_Binaural_GUI_V07_OpeningFcn, ...
+                   'gui_OutputFcn',  @Sintesis_Binaural_GUI_V07_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -44,15 +44,15 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before Sintesis_Binaural_GUI_V06 is made visible.
-function Sintesis_Binaural_GUI_V06_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before Sintesis_Binaural_GUI_V07 is made visible.
+function Sintesis_Binaural_GUI_V07_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to Sintesis_Binaural_GUI_V06 (see VARARGIN)
+% varargin   command line arguments to Sintesis_Binaural_GUI_V07 (see VARARGIN)
 
-% Choose default command line output for Sintesis_Binaural_GUI_V06
+% Choose default command line output for Sintesis_Binaural_GUI_V07
 handles.output = hObject;
 
 %% INICIALIZACIÓN
@@ -77,6 +77,8 @@ handles.hrtf_IR_Left = squeeze(handles.hrtf.Data.IR(:, 1, :)); % se elimina una 
 handles.hrtf_IR_Right = squeeze(handles.hrtf.Data.IR(:, 2, :));
 
 set(handles.text_SOFA, 'string', 'HRIR_L2702_NF150.sofa')
+set(handles.slider_cf, 'Max', handles.hrtf.API.N)
+set(handles.slider_cf, 'SliderStep', [1/(handles.hrtf.API.N-2) , 1/(handles.hrtf.API.N/8-2) ]);
 
 %% CONTROLADOR DE AUDIO
 adw = audioDeviceWriter('SampleRate', handles.hrtf_Fs); % se crea el objeto que envía los datos al buffer de salida
@@ -88,12 +90,12 @@ handles.adw = adw;
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes Sintesis_Binaural_GUI_V06 wait for user response (see UIRESUME)
+% UIWAIT makes Sintesis_Binaural_GUI_V07 wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = Sintesis_Binaural_GUI_V06_OutputFcn(hObject, eventdata, handles) 
+function varargout = Sintesis_Binaural_GUI_V07_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -147,6 +149,14 @@ function boton_play_Callback(hObject, eventdata, handles)
 % hObject    handle to boton_play (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+%% Error check
+try
+    aud = handles.audio(1).audioFile();
+    reset(handles.audio(1).audioFile)
+catch
+    disp("Primero debe cargar un audio")
+    return
+end
 
 %% PARAMETROS
 source1 = handles.apparentSourceVector(:,1); source2 = handles.apparentSourceVector(:,2);
@@ -161,10 +171,12 @@ pad_block = zeros(handles.hrtf.API.N,2, length(handles.audio)); % primer bloque 
 posicion_fuente_previa =  zeros(length(handles.audio),1); 
 audioIn = zeros(handles.largo_audio_buffer,2,length(handles.audio));
 out = zeros(handles.largo_audio_buffer,2,length(handles.audio));
+fin = zeros(length(handles.audio), 1);
 
 contador = 0;
 detener = 0;
 estado_bluetooth = get(handles.static_bluetooth,'String');
+final = 0;
 
 % posicion inicial del sensor
 if strcmp(estado_bluetooth,'Encendido')
@@ -178,9 +190,15 @@ end
 % si esta activado grabar
 grabar = get(handles.boton_grabar,'Value');
 
-while (~isDone(handles.audio(1).audioFile) || ~isDone(handles.audio(2).audioFile))&& (detener == 0)
+while ((~final) && (detener == 0))  %  ~isDone(handles.audio(1).audioFile) || ~isDone(handles.audio(2).audioFile)
     for i = 1:length(handles.audio)
-        audioIn(:,:,i) = handles.audio(i).audioFile(); % audioIn es el buffer, por default 1024x2 
+        [audioIn(:,:,i), fin(i)] = handles.audio(i).audioFile(); % audioIn es el buffer, por default 1024x2 
+        if isDone(handles.audio(i).audioFile)
+            fin(i)=1;
+        end
+    end
+    if sum(fin)==length(handles.audio)
+        final = 1; % avisa que se terminaron todos los audios
     end
     
     %% By pass?
@@ -225,7 +243,7 @@ while (~isDone(handles.audio(1).audioFile) || ~isDone(handles.audio(2).audioFile
         filtros = [hrtf_IR_Left(posicion_fuente,:)' hrtf_IR_Right(posicion_fuente,:)'];      
         if posicion_fuente_previa(i)~=0 && posicion_fuente ~= posicion_fuente_previa(i) % Con Crossfading
             filtros_previos = [hrtf_IR_Left(posicion_fuente_previa(i),:)' hrtf_IR_Right(posicion_fuente_previa(i),:)']; 
-            [out(:,:,i),pad_block(:,:,i)] = partitioned_convolution_OS_CF(audioIn(:,:,i),filtros,pad_block(:,:,i),filtros_previos);
+            [out(:,:,i),pad_block(:,:,i)] = partitioned_convolution_OS_CF(audioIn(:,:,i),filtros,pad_block(:,:,i),filtros_previos,get(handles.slider_cf, 'Value'));
         else % Sin crossfading
             [out(:,:,i),pad_block(:,:,i)] = partitioned_convolution_OS_CF(audioIn(:,:,i),filtros,pad_block(:,:,i));
         end
@@ -282,11 +300,20 @@ if button_state == get(hObject,'Max')     % toggle button is pressed
         isobject(handles.sensor);
     catch
         disp('Creando objeto Bluetooth')
-        handles.sensor = Bluetooth('SENSOR',1); % CREA EL OBJETO BT
+        try
+            handles.sensor = Bluetooth('SENSOR',1); % CREA EL OBJETO BT
+        catch
+            disp('Encienda el Bluetooth de la PC')
+            return
+        end
         disp('Objeto creado')
     end
-    
-    fopen(handles.sensor);
+    try
+        fopen(handles.sensor);
+    catch
+        disp('Encienda el sensor de movimiento y vuelva a intentar')
+        return
+    end        
     flushinput(handles.sensor);
     fclose(handles.sensor);
     fopen(handles.sensor);
@@ -472,10 +499,8 @@ function test_sensor_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 estado_bluetooth = get(handles.static_bluetooth,'String');
 if strcmp(estado_bluetooth,'Apagado')
-fopen(handles.sensor);
-flushinput(handles.sensor);
-fclose(handles.sensor);
-fopen(handles.sensor);
+    disp('Primero debe conectar el Sensor Bluetooth')
+    return
 end
 flushinput(handles.sensor);
 [~,~] = sensor_read(handles.sensor); % Se ignora la primera lectura
@@ -656,8 +681,57 @@ try
     handles.hrtf_IR_Right = squeeze(handles.hrtf.Data.IR(:, 2, :));
 
     set(handles.text_SOFA, 'string', archivo)
+    set(handles.slider_cf, 'Max', handles.hrtf.API.N)
+    set(handles.slider_cf, 'SliderStep', [1/(handles.hrtf.API.N-2) , 1/(handles.hrtf.API.N/8-2) ]);
 catch
     
 end
 
 guidata(hObject, handles);
+
+
+% --- Executes on slider movement.
+function slider_cf_Callback(hObject, eventdata, handles)
+% hObject    handle to slider_cf (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+set(handles.edit_cf, 'String', num2str(get(hObject, 'Value')))
+guidata(hObject, handles);
+
+% --- Executes during object creation, after setting all properties.
+function slider_cf_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider_cf (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+
+
+
+function edit_cf_Callback(hObject, eventdata, handles)
+% hObject    handle to edit_cf (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit_cf as text
+%        str2double(get(hObject,'String')) returns contents of edit_cf as a double
+set(handles.slider_cf, 'Value', round(str2double(get(hObject, 'String'))))
+guidata(hObject, handles);
+
+% --- Executes during object creation, after setting all properties.
+function edit_cf_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit_cf (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end

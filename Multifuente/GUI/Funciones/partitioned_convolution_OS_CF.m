@@ -1,4 +1,4 @@
-function [out,pad_block] = partitioned_convolution_OS_CF(audio_in,filtros,pad_block,filtros_previos)
+function [out,pad_block] = partitioned_convolution_OS_CF(audio_in,filtros,pad_block,filtros_previos,long_cf)
 % Convolución por bloques en el dominio de las frecuencias
 % Entrada:
 %   audio_in        - Buffer de audio.
@@ -17,6 +17,11 @@ if nargin < 4
 else
     crossfade = 1;
 end
+if nargin < 5
+    long_cf = 32; % Longitud del fundido cruzado por defecto
+else
+    % se le asigna el valor dado por el usuario
+end
 %% Parametros
 L1 = length(audio_in); % longitud de la señal de audio
 N1 = length(filtros); % longitud de los filtros
@@ -33,7 +38,6 @@ if crossfade == 1
     filtros_previos = [filtros_previos;zeros(N1,2)];
     fft_filtro_previo = fft(filtros_previos); 
     % se generan las funciones de fundido
-    long_cf = 32; % Longitud del fundido cruzado N1
     fade_out = (0.5+(0.5*cos(pi*linspace(1,2*long_cf,long_cf)/(2*long_cf))))'; 
     fade_in = (0.5-(0.5*cos(pi*linspace(1,2*long_cf,long_cf)/(2*long_cf))))';
     
