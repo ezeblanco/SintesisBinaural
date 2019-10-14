@@ -534,18 +534,26 @@ function boton_grabar_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 if get(hObject,'Value')==1
-    prompt = {'ej. Nombre.wav'};
-    dlgtitle = 'Nombre de archivo';
-    dims = [1 50];
-    definput = {''};
-    handles.nombre_grabacion = char(inputdlg(prompt,dlgtitle,dims,definput));
-    disp('Espere un momento')
-    handles.afw = dsp.AudioFileWriter(handles.nombre_grabacion,'SampleRate',handles.hrtf_Fs); % objeto para grabacion
-    disp('listo para grabar')
-    set(hObject,'BackgroundColor','red')
+    try
+        prompt = {'ej. Nombre.wav'};
+        dlgtitle = 'Nombre de archivo';
+        dims = [1 50];
+        definput = {''};
+        handles.nombre_grabacion = char(inputdlg(prompt,dlgtitle,dims,definput));
+        disp('Espere un momento')
+        handles.afw = dsp.AudioFileWriter(handles.nombre_grabacion,'SampleRate',handles.hrtf_Fs); % objeto para grabacion
+        disp('listo para grabar')
+        set(hObject,'BackgroundColor','red')
+    catch
+        disp('debe elegir un nombre')
+        return
+    end
 else
     set(hObject,'BackgroundColor',[0.94 0.94 0.94])
-    release(handles.afw)
+    try
+        release(handles.afw)
+    catch
+    end
 end
 % Update handles structure
 guidata(hObject, handles);
