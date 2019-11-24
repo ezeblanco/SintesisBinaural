@@ -1,35 +1,35 @@
-function varargout = Sintesis_Binaural_GUI_V07(varargin)
-% SINTESIS_BINAURAL_GUI_V07 MATLAB code for Sintesis_Binaural_GUI_V07.fig
-%      SINTESIS_BINAURAL_GUI_V07, by itself, creates a new SINTESIS_BINAURAL_GUI_V07 or raises the existing
+function varargout = Sintesis_Binaural_GUI_V08(varargin)
+% SINTESIS_BINAURAL_GUI_V08 MATLAB code for Sintesis_Binaural_GUI_V08.fig
+%      SINTESIS_BINAURAL_GUI_V08, by itself, creates a new SINTESIS_BINAURAL_GUI_V08 or raises the existing
 %      singleton*.
 %
-%      H = SINTESIS_BINAURAL_GUI_V07 returns the handle to a new SINTESIS_BINAURAL_GUI_V07 or the handle to
+%      H = SINTESIS_BINAURAL_GUI_V08 returns the handle to a new SINTESIS_BINAURAL_GUI_V08 or the handle to
 %      the existing singleton*.
 %
-%      SINTESIS_BINAURAL_GUI_V07('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in SINTESIS_BINAURAL_GUI_V07.M with the given input arguments.
+%      SINTESIS_BINAURAL_GUI_V08('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in SINTESIS_BINAURAL_GUI_V08.M with the given input arguments.
 %
-%      SINTESIS_BINAURAL_GUI_V07('Property','Value',...) creates a new SINTESIS_BINAURAL_GUI_V07 or raises the
+%      SINTESIS_BINAURAL_GUI_V08('Property','Value',...) creates a new SINTESIS_BINAURAL_GUI_V08 or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before Sintesis_Binaural_GUI_V07_OpeningFcn gets called.  An
+%      applied to the GUI before Sintesis_Binaural_GUI_V08_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to Sintesis_Binaural_GUI_V07_OpeningFcn via varargin.
+%      stop.  All inputs are passed to Sintesis_Binaural_GUI_V08_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help Sintesis_Binaural_GUI_V07
+% Edit the above text to modify the response to help Sintesis_Binaural_GUI_V08
 
-% Last Modified by GUIDE v2.5 01-Oct-2019 11:34:24
+% Last Modified by GUIDE v2.5 01-Nov-2019 16:02:13
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @Sintesis_Binaural_GUI_V07_OpeningFcn, ...
-                   'gui_OutputFcn',  @Sintesis_Binaural_GUI_V07_OutputFcn, ...
+                   'gui_OpeningFcn', @Sintesis_Binaural_GUI_V08_OpeningFcn, ...
+                   'gui_OutputFcn',  @Sintesis_Binaural_GUI_V08_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -44,15 +44,15 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before Sintesis_Binaural_GUI_V07 is made visible.
-function Sintesis_Binaural_GUI_V07_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before Sintesis_Binaural_GUI_V08 is made visible.
+function Sintesis_Binaural_GUI_V08_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to Sintesis_Binaural_GUI_V07 (see VARARGIN)
+% varargin   command line arguments to Sintesis_Binaural_GUI_V08 (see VARARGIN)
 
-% Choose default command line output for Sintesis_Binaural_GUI_V07
+% Choose default command line output for Sintesis_Binaural_GUI_V08
 handles.output = hObject;
 
 %% INICIALIZACIÓN
@@ -90,12 +90,12 @@ handles.adw = adw;
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes Sintesis_Binaural_GUI_V07 wait for user response (see UIRESUME)
+% UIWAIT makes Sintesis_Binaural_GUI_V08 wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = Sintesis_Binaural_GUI_V07_OutputFcn(hObject, eventdata, handles) 
+function varargout = Sintesis_Binaural_GUI_V08_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -141,6 +141,39 @@ cd (handles.directorio_raiz)
 % Update handles structure
 guidata(hObject, handles);
 
+% --- Executes on button press in eliminar_audio.
+function eliminar_audio_Callback(hObject, eventdata, handles)
+% hObject    handle to eliminar_audio (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+idx = get(handles.audiopopup, 'Value');
+
+try
+    % delete(handles.audio(idx)) % VER DE DELIMINAR LA FILA DEL AUDIO
+    % f = fields(handles.audio);
+    % handles.audio(2) = rmfield(handles.audio(2), f);
+    % Parametros
+    handles.audio(idx).nombre_audio = 0;
+    try
+        release(handles.audio(idx).audioFile);
+    catch
+    end
+    handles.audio(idx).audioFile = [];
+    handles.audio(idx).azi = [];
+    handles.audio(idx).ele = [];
+    handles.audio(idx).nivel = 1;
+    handles.audio(idx).dB = 0;
+    set(handles.static_audio_name, 'String', ' ');
+    set(handles.slider_azimuth, 'Value', 0);
+    set(handles.edit_azimuth, 'String', '0');
+    set(handles.slider_elevacion, 'Value', 0);
+    set(handles.edit_elevacion, 'String', '0');
+    set(handles.sliderNivel, 'Value', 0)
+    set(handles.edit_nivel, 'string', '0')
+catch
+end
+
+guidata(hObject, handles);
 
 
 
@@ -157,6 +190,15 @@ catch
     disp("Primero debe cargar un audio")
     return
 end
+%% CHEQUEO AUDIOS
+audiologico = zeros(length(handles.audio),1);
+for i = 1:length(handles.audio)
+    if handles.audio(i).nombre_audio == 0
+        audiologico(i) = 1;
+    end
+end
+audio_idx = (find(~audiologico))';
+audio_idx_len = length(audio_idx);
 
 %% PARAMETROS
 source1 = handles.apparentSourceVector(:,1); source2 = handles.apparentSourceVector(:,2);
@@ -191,19 +233,19 @@ end
 grabar = get(handles.boton_grabar,'Value');
 
 while ((~final) && (detener == 0))  %  ~isDone(handles.audio(1).audioFile) || ~isDone(handles.audio(2).audioFile)
-    for i = 1:length(handles.audio)
+    for i = audio_idx
         [audioIn(:,:,i), fin(i)] = handles.audio(i).audioFile(); % audioIn es el buffer, por default 1024x2 
         if isDone(handles.audio(i).audioFile)
             fin(i)=1;
         end
     end
-    if sum(fin)==length(handles.audio)
+    if sum(fin)==audio_idx_len
         final = 1; % avisa que se terminaron todos los audios
     end
     
     %% By pass?
     if get(handles.togglebutton_by_pass,'Value') % Si hay by pass
-        for i = 1:length(handles.audio)
+        for i = audio_idx
             out(:,:,i) = audioIn(:,:,i);
         end
     else % Sin by pass
@@ -217,7 +259,7 @@ while ((~final) && (detener == 0))  %  ~isDone(handles.audio(1).audioFile) || ~i
             end
             if contador == 3
                 [yaw,pitch] = sensor_read(handles.sensor);
-                for i = 1:length(handles.audio)
+                for i = audio_idx
                     [azi_slider(i), ele_slider(i)] = DatosSlider(hObject, i);
                     azi_value(i) = azi_slider(i) - (yaw - yaw_cero); % calcula el delta de la posición
                     ele_value(i) = ele_slider(i) - (pitch - pitch_cero);
@@ -231,14 +273,14 @@ while ((~final) && (detener == 0))  %  ~isDone(handles.audio(1).audioFile) || ~i
             contador = 0;
             end
         else
-            for i = 1:length(handles.audio)     
+            for i = audio_idx     
                 [azi_slider(i), ele_slider(i)] = DatosSlider(hObject, i);
                 azi_value(i) = azi_slider(i);
                 ele_value(i) = ele_slider(i);
             end
         end
     %% FILTRADO CON CONVOLUCIÓN OVERLAP-SAVE    
-    for i = 1:length(handles.audio)
+    for i = audio_idx
         [~,posicion_fuente] = min(pdist2(source1, azi_value(i))+pdist2(source2, ele_value(i))); % busca el valor más proximo de angulo azimut y elevación   
         filtros = [hrtf_IR_Left(posicion_fuente,:)' hrtf_IR_Right(posicion_fuente,:)'];      
         if posicion_fuente_previa(i)~=0 && posicion_fuente ~= posicion_fuente_previa(i) % Con Crossfading
@@ -255,7 +297,7 @@ while ((~final) && (detener == 0))  %  ~isDone(handles.audio(1).audioFile) || ~i
     contador = contador + 1;
     end
     %% SALIDA CONTROLADOR AUDIO
-    for i = 1:length(handles.audio) 
+    for i = audio_idx 
         [nivel(i), dB(i)] = DatosSliderNivel(hObject, i);
         out(:,:,i) = out(:,:,i) * nivel(i); % Nivel de slider para cada pista
     end
@@ -264,18 +306,21 @@ while ((~final) && (detener == 0))  %  ~isDone(handles.audio(1).audioFile) || ~i
     handles.adw([out(:,1),out(:,2)]);
     %% Grabación
     if grabar==1
-        handles.afw(out);
+        handles.afw(out(:,:));
     end
     %%ACTUALIZACIÓN VARIABLES
     drawnow % actualizo los callbacks
     detener = get(handles.togglebutton2_detener,'Value'); % boton para detener
 end
-for i = 1:length(handles.audio)
+for i = audio_idx
     reset(handles.audio(i).audioFile);
-    handles.audio(i).azi.slider = azi_slider(i);
-    handles.audio(i).ele.slider = ele_slider(i);
-    handles.audio(i).nivel = nivel(i);
-    handles.audio(i).dB = dB(i);
+    try
+        handles.audio(i).azi.slider = azi_slider(i);
+        handles.audio(i).ele.slider = ele_slider(i);
+        handles.audio(i).nivel = nivel(i);
+        handles.audio(i).dB = dB(i);
+    catch
+    end
 end
 if grabar==1
     release(handles.afw);
@@ -390,17 +435,6 @@ set(handles.edit_azimuth,'String',num2str(handles.audio(idx).azi.slider));
 % Update handles structure
 guidata(hObject, handles);
 
-
-function [azi, ele] = DatosSlider(hObject, idx)
-handles = guidata(hObject);
-azi = handles.audio(idx).azi.slider;
-ele = handles.audio(idx).ele.slider;
-
-function [nivel, dB] = DatosSliderNivel(hObject, idx)
-handles = guidata(hObject);
-nivel = handles.audio(idx).nivel;
-dB = handles.audio(idx).dB;
-
 % --- Executes during object creation, after setting all properties.
 function slider_azimuth_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to slider_azimuth (see GCBO)
@@ -437,6 +471,16 @@ function slider_elevacion_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+
+function [azi, ele] = DatosSlider(hObject, idx)
+handles = guidata(hObject);
+azi = handles.audio(idx).azi.slider;
+ele = handles.audio(idx).ele.slider;
+
+function [nivel, dB] = DatosSliderNivel(hObject, idx)
+handles = guidata(hObject);
+nivel = handles.audio(idx).nivel;
+dB = handles.audio(idx).dB;
 
 
 
@@ -557,7 +601,6 @@ else
 end
 % Update handles structure
 guidata(hObject, handles);
-    
 % Hint: get(hObject,'Value') returns toggle state of boton_grabar
 
 
@@ -568,7 +611,11 @@ function audiopopup_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 idx = get(hObject, 'Value');
 try 
-    set(handles.static_audio_name, 'String', handles.audio(idx).nombre_audio);
+    if handles.audio(idx).nombre_audio == 0
+        set(handles.static_audio_name, 'String', ' ');
+    else
+        set(handles.static_audio_name, 'String', handles.audio(idx).nombre_audio);
+    end    
 catch
     set(handles.static_audio_name, 'String', ' ');
 end
@@ -743,3 +790,5 @@ function edit_cf_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
