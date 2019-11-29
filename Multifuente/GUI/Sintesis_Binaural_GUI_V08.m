@@ -130,11 +130,7 @@ try
     set(handles.sliderNivel, 'Value', handles.audio(idx).dB)
     set(handles.edit_nivel, 'string', num2str(handles.audio(idx).dB))
 catch
-    try
-        handles.audio(idx).nombre_audio = handles.audio(idx).nombre_audio;
-    catch
-        handles.audio(idx).nombre_audio = ' ';
-    end
+
 end
 cd (handles.directorio_raiz)
 
